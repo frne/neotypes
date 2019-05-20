@@ -1,0 +1,62 @@
+<html><head><title>neotypes: Home</title><meta charset="utf-8" /><meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" /><meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="author" content="dimafeng" /><meta name="description" content="Scala lightweight, type-safe, asynchronous driver for neo4j" /><meta name="og:image" content="/neotypes/img/poster.png" /><meta name="image" property="og:image" content="/neotypes/img/poster.png" /><meta name="og:title" content="neotypes: Home" /><meta name="title" property="og:title" content="neotypes: Home" /><meta name="og:site_name" content="neotypes" /><meta name="og:url" content="https://neotypes.github.io/neotypes/" /><meta name="og:type" content="website" /><meta name="og:description" content="Scala lightweight, type-safe, asynchronous driver for neo4j" /><link rel="icon" type="image/png" href="/neotypes/img/favicon.png" /><meta name="twitter:title" content="neotypes: Home" /><meta name="twitter:image" content="/neotypes/img/poster.png" /><meta name="twitter:description" content="Scala lightweight, type-safe, asynchronous driver for neo4j" /><meta name="twitter:card" content="summary_large_image" /><link rel="icon" type="image/png" sizes="16x16" href="/neotypes/img/favicon16x16.png" /><link rel="icon" type="image/png" sizes="24x24" href="/neotypes/img/favicon24x24.png" /><link rel="icon" type="image/png" sizes="32x32" href="/neotypes/img/favicon32x32.png" /><link rel="icon" type="image/png" sizes="48x48" href="/neotypes/img/favicon48x48.png" /><link rel="icon" type="image/png" sizes="57x57" href="/neotypes/img/favicon57x57.png" /><link rel="icon" type="image/png" sizes="60x60" href="/neotypes/img/favicon60x60.png" /><link rel="icon" type="image/png" sizes="64x64" href="/neotypes/img/favicon64x64.png" /><link rel="icon" type="image/png" sizes="70x70" href="/neotypes/img/favicon70x70.png" /><link rel="icon" type="image/png" sizes="72x72" href="/neotypes/img/favicon72x72.png" /><link rel="icon" type="image/png" sizes="76x76" href="/neotypes/img/favicon76x76.png" /><link rel="icon" type="image/png" sizes="96x96" href="/neotypes/img/favicon96x96.png" /><link rel="icon" type="image/png" sizes="114x114" href="/neotypes/img/favicon114x114.png" /><link rel="icon" type="image/png" sizes="120x120" href="/neotypes/img/favicon120x120.png" /><link rel="icon" type="image/png" sizes="128x128" href="/neotypes/img/favicon128x128.png" /><link rel="icon" type="image/png" sizes="144x144" href="/neotypes/img/favicon144x144.png" /><link rel="icon" type="image/png" sizes="150x150" href="/neotypes/img/favicon150x150.png" /><link rel="icon" type="image/png" sizes="152x152" href="/neotypes/img/favicon152x152.png" /><link rel="icon" type="image/png" sizes="196x196" href="/neotypes/img/favicon196x196.png" /><link rel="icon" type="image/png" sizes="310x310" href="/neotypes/img/favicon310x310.png" /><link rel="icon" type="image/png" sizes="310x150" href="/neotypes/img/favicon310x150.png" /><link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" /><link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" /><link rel="stylesheet" href="/neotypes/highlight/styles/atom-one-light.css" /><link rel="stylesheet" href="/neotypes/css/style.css" /><link rel="stylesheet" href="/neotypes/css/palette.css" /><link rel="stylesheet" href="/neotypes/css/codemirror.css" /><link rel="stylesheet" href="/neotypes/css/style.css" /></head><body><header id="site-header"><div class="navbar-wrapper"><div class="container"><div class="row"><div class="col-xs-6"><a href="/neotypes/" class="brand"><div class="icon-wrapper"><span>neotypes</span></div></a></div><div class="col-xs-6"><nav class="text-right"><ul class=""><li><a href="https://github.com/neotypes/neotypes"><i class="fa fa-github"></i><span class="hidden-xs">GitHub</span></a></li><li><a href="docs.html"><i class="fa fa-file-text"></i><span class="hidden-xs">Documentation</span></a></li></ul></nav></div></div></div></div><div class="jumbotron"><div class="container"><h1 class="text-center">Scala lightweight, type-safe, asynchronous driver for neo4j</h1><h2></h2><p class="text-center"><a href="https://github.com/neotypes/neotypes" class="btn btn-outline-inverse">View on GitHub</a></p></div></div><div><ul class="horizontalNav">                 <li><a class=" active " href="/neotypes/">Home</a></li> </ul></div></header><main id="site-main"><section class="use"><div class="container"><div id="content"><p><img src="img/neotypes.png" alt="Logo" /></p>
+
+<blockquote>
+  <p>neotype - a type specimen that is selected subsequent to the description of a species to replace a preexisting type that has been lost or destroyed</p>
+</blockquote>
+
+<p><a href="https://travis-ci.org/neotypes/neotypes"><img src="https://travis-ci.org/neotypes/neotypes.svg?branch=master" alt="Build Status" /></a>
+<a href="https://maven-badges.herokuapp.com/maven-central/com.dimafeng/neotypes_2.12"><img src="https://img.shields.io/maven-central/v/com.dimafeng/neotypes_2.12.svg" alt="Maven Central" /></a>
+<a href="https://gitter.im/neotypes-neotypes/Lobby"><img src="https://badges.gitter.im/neotypes-neotypes/Lobby.svg" alt="Gitter Chat" /></a></p>
+
+<h1 id="neotypes">neotypes</h1>
+
+<p><strong>Scala lightweight, type-safe, asynchronous driver (not opinionated on side-effect implementation) for neo4j</strong>.</p>
+
+<ul>
+  <li><strong>Scala</strong> - the driver provides you with support for all standard Scala types without the need to convert Scala &lt;-&gt; Java types back and forth and you can easily add your types.</li>
+  <li><strong>Lightweight</strong> - the driver depends on <code class="highlighter-rouge">shapeless</code> and <code class="highlighter-rouge">neo4j Java driver</code></li>
+  <li><strong>Type-safe</strong> - the driver leverages <a href="https://blog.scalac.io/2017/04/19/typeclasses-in-scala.html">typeclasses</a> to derive all needed conversions at the compile time.</li>
+  <li><strong>Asynchronous</strong> - the driver sits on top of <a href="https://neo4j.com/blog/beta-release-java-driver-async-api-neo4j/">asynchronous Java driver</a>.</li>
+  <li><strong>Not opinionated on side-effect implementation</strong> - you can use it with any implementation of side-effects of your chose (scala.Future, cats-effect
+ IO, Monix Task, etc) by implementing a simple typeclass. <code class="highlighter-rouge">scala.Future</code> is implemented and comes out of the box.</li>
+</ul>
+
+<p>The project aims to provide seamless integration with most popular scala infrastructures such as lightbend (Akka, Akka-http, Lagom, etc), typelevel (cats, http4s, etc), twitter (finch, etc)…</p>
+
+<h2 id="resources">Resources</h2>
+
+<ul>
+  <li><a href="https://neotypes.github.io/neotypes/docs.html">Official Documentation</a></li>
+  <li><a href="https://github.com/neotypes/examples">Example project (Akka-http + neotypes)</a></li>
+</ul>
+
+<h2 id="setup">Setup</h2>
+
+<table class="table">
+  <tbody>
+    <tr>
+      <td><code class="highlighter-rouge">"com.dimafeng" %% "neotypes" % version</code></td>
+      <td>Core functionality. Supports <code class="highlighter-rouge">scala.concurrent.Future</code>.</td>
+    </tr>
+    <tr>
+      <td><code class="highlighter-rouge">"com.dimafeng" %% "neotypes-cats-effect" % version</code></td>
+      <td><code class="highlighter-rouge">cats.effect.Async[F]</code> implementation</td>
+    </tr>
+    <tr>
+      <td><code class="highlighter-rouge">"com.dimafeng" %% "neotypes-monix" % version</code></td>
+      <td><code class="highlighter-rouge">monix.eval.Task</code> implementation</td>
+    </tr>
+    <tr>
+      <td><code class="highlighter-rouge">"com.dimafeng" %% "neotypes-akka-stream" % version</code></td>
+      <td>result streaming for Akka Streams</td>
+    </tr>
+    <tr>
+      <td><code class="highlighter-rouge">"com.dimafeng" %% "neotypes-fs2-stream" % version</code></td>
+      <td>result streaming for FS2</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></section><section class="technologies"><div class="container"><div class="row"></div></div></section></main><footer id="site-footer"><div class="container"><div class="row"><div class="col-xs-6"><p>neotypes is designed and developed by <a href="" target="_blank">dimafeng</a></p></div><div class="col-xs-6"><p class="text-right"><a href="https://github.com/neotypes/neotypes"><span class="fa fa-github"></span>View on GitHub</a></p></div></div><div class="row"><div class="col-xs-6"><p>Website built with <a href="https://47deg.github.io/sbt-microsites/" target="_blank">Sbt-microsites</a> - © 2016 <a href="https://www.47deg.com/" target="_blank">47 Degrees</a></p></div></div></div></footer><script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script><script src="/neotypes/highlight/highlight.pack.js"></script><script>hljs.configure({languages:['scala','java','bash']});
+hljs.initHighlighting();
+              </script><script>((window.gitter = {}).chat = {}).options = {
+room: 'neotypes/neotypes'};</script><script src="https://sidecar.gitter.im/dist/sidecar.v1.js"></script></body></html>

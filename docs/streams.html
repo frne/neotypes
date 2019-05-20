@@ -1,0 +1,151 @@
+<html><head><title>neotypes: Streams</title><meta charset="utf-8" /><meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" /><meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="author" content="dimafeng" /><meta name="description" content="Scala lightweight, type-safe, asynchronous driver for neo4j" /><meta name="og:image" content="/neotypes/img/poster.png" /><meta name="image" property="og:image" content="/neotypes/img/poster.png" /><meta name="og:title" content="neotypes: Streams" /><meta name="title" property="og:title" content="neotypes: Streams" /><meta name="og:site_name" content="neotypes" /><meta name="og:url" content="https://neotypes.github.io/neotypes/" /><meta name="og:type" content="website" /><meta name="og:description" content="Scala lightweight, type-safe, asynchronous driver for neo4j" /><link rel="icon" type="image/png" href="/neotypes/img/favicon.png" /><meta name="twitter:title" content="neotypes: Streams" /><meta name="twitter:image" content="/neotypes/img/poster.png" /><meta name="twitter:description" content="Scala lightweight, type-safe, asynchronous driver for neo4j" /><meta name="twitter:card" content="summary_large_image" /><link rel="icon" type="image/png" sizes="16x16" href="/neotypes/img/favicon16x16.png" /><link rel="icon" type="image/png" sizes="24x24" href="/neotypes/img/favicon24x24.png" /><link rel="icon" type="image/png" sizes="32x32" href="/neotypes/img/favicon32x32.png" /><link rel="icon" type="image/png" sizes="48x48" href="/neotypes/img/favicon48x48.png" /><link rel="icon" type="image/png" sizes="57x57" href="/neotypes/img/favicon57x57.png" /><link rel="icon" type="image/png" sizes="60x60" href="/neotypes/img/favicon60x60.png" /><link rel="icon" type="image/png" sizes="64x64" href="/neotypes/img/favicon64x64.png" /><link rel="icon" type="image/png" sizes="70x70" href="/neotypes/img/favicon70x70.png" /><link rel="icon" type="image/png" sizes="72x72" href="/neotypes/img/favicon72x72.png" /><link rel="icon" type="image/png" sizes="76x76" href="/neotypes/img/favicon76x76.png" /><link rel="icon" type="image/png" sizes="96x96" href="/neotypes/img/favicon96x96.png" /><link rel="icon" type="image/png" sizes="114x114" href="/neotypes/img/favicon114x114.png" /><link rel="icon" type="image/png" sizes="120x120" href="/neotypes/img/favicon120x120.png" /><link rel="icon" type="image/png" sizes="128x128" href="/neotypes/img/favicon128x128.png" /><link rel="icon" type="image/png" sizes="144x144" href="/neotypes/img/favicon144x144.png" /><link rel="icon" type="image/png" sizes="150x150" href="/neotypes/img/favicon150x150.png" /><link rel="icon" type="image/png" sizes="152x152" href="/neotypes/img/favicon152x152.png" /><link rel="icon" type="image/png" sizes="196x196" href="/neotypes/img/favicon196x196.png" /><link rel="icon" type="image/png" sizes="310x310" href="/neotypes/img/favicon310x310.png" /><link rel="icon" type="image/png" sizes="310x150" href="/neotypes/img/favicon310x150.png" /><link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" /><link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" /><link rel="stylesheet" href="/neotypes/highlight/styles/atom-one-light.css" /><link rel="stylesheet" href="/neotypes/css/style.css" /><link rel="stylesheet" href="/neotypes/css/palette.css" /><link rel="stylesheet" href="/neotypes/css/codemirror.css" /><link rel="stylesheet" href="/neotypes/css/style.css" /></head><body class="docs"><div id="wrapper"><div id="sidebar-wrapper"><ul id="sidebar" class="sidebar-nav"><li class="sidebar-brand"><a href="/neotypes/" class="brand"><div class="brand-wrapper"><span>neotypes</span></div></a></li> <li><a href="/neotypes/docs.html" class="">Documentation</a> <ul class="sub_section"> <li><a href="/neotypes/docs/types.html" class="">Supported Types</a></li> <li><a href="/neotypes/docs/parameterized_queries.html" class="">Parameterized Queries</a></li> <li><a href="/neotypes/docs/driver_session_transaction.html" class="">Driver -> Session -> Transaction</a></li> <li><a href="/neotypes/docs/alternative_effects.html" class="">Side effect: Future/IO/Task</a></li> <li><a href="/neotypes/docs/streams.html" class=" active ">Streams</a></li></ul></li></ul></div><div id="page-content-wrapper"><div class="nav"><div class="container-fluid"><div class="row"><div class="col-lg-12"><div class="action-menu pull-left clearfix"><a href="#menu-toggle" id="menu-toggle"><i class="fa fa-bars" aria-hidden="true"></i></a></div><ul class="pull-right"><li id="gh-eyes-item" class="hidden-xs"><a href="https://github.com/neotypes/neotypes"><i class="fa fa-eye"></i><span>WATCH<span id="eyes" class="label label-default">--</span></span></a></li><li id="gh-stars-item" class="hidden-xs"><a href="https://github.com/neotypes/neotypes"><i class="fa fa-star-o"></i><span>STARS<span id="stars" class="label label-default">--</span></span></a></li><li><a href="#" onclick="shareSiteTwitter('neotypes Scala lightweight, type-safe, asynchronous driver for neo4j');"><i class="fa fa-twitter"></i></a></li><li><a href="#" onclick="shareSiteFacebook('neotypes Scala lightweight, type-safe, asynchronous driver for neo4j');"><i class="fa fa-facebook"></i></a></li><li><a href="#" onclick="shareSiteGoogle();"><i class="fa fa-google-plus"></i></a></li></ul></div></div></div></div><div id="content" data-github-owner="neotypes" data-github-repo="neotypes"><div class="content-wrapper"><section><h1 id="streams">Streams</h1>
+
+<p><strong>neotypes</strong> allows to stream large results by lazily consuming the result and putting elements into a stream.
+Currently, there are three implementations of streaming supported out of the box <em>(one for each effect type)</em> -
+<a href="https://doc.akka.io/docs/akka/current/stream/index.html"><strong>Akka Streams</strong></a> <em>(for <code class="highlighter-rouge">scala.concurrent.Future</code>)</em>,
+<a href="https://fs2.io/"><strong>FS2</strong></a> <em>(for <code class="highlighter-rouge">cats.effect.Async[F]</code>)</em>
+&amp; <a href="https://monix.io/docs/3x/reactive/observable.html"><strong>Monix Observables</strong></a> <em>(for <code class="highlighter-rouge">monix.eval.Task</code>)</em>.</p>
+
+<h2 id="usage">Usage</h2>
+
+<h3 id="akka-streams">Akka Streams</h3>
+
+<div class="language-scala highlighter-rouge"><pre class="highlight"><code><span class="k">import</span> <span class="nn">neotypes.akkastreams.AkkaStream</span>
+<span class="k">import</span> <span class="nn">neotypes.akkastreams.implicits._</span>
+<span class="k">import</span> <span class="nn">neotypes.implicits._</span>
+
+<span class="k">val</span> <span class="n">session</span> <span class="k">=</span> <span class="n">driver</span><span class="o">.</span><span class="n">session</span><span class="o">().</span><span class="n">asScala</span><span class="o">[</span><span class="kt">Future</span><span class="o">]</span>
+<span class="k">implicit</span> <span class="k">val</span> <span class="n">system</span> <span class="k">=</span> <span class="nc">ActorSystem</span><span class="o">(</span><span class="s">"QuickStart"</span><span class="o">)</span>
+<span class="k">implicit</span> <span class="k">val</span> <span class="n">materializer</span> <span class="k">=</span> <span class="nc">ActorMaterializer</span><span class="o">()</span>
+
+<span class="s">"match (p:Person) return p.name"</span>
+  <span class="o">.</span><span class="n">query</span><span class="o">[</span><span class="kt">String</span><span class="o">]</span>
+  <span class="o">.</span><span class="n">stream</span><span class="o">[</span><span class="kt">AkkaStream</span><span class="o">](</span><span class="n">session</span><span class="o">)</span>
+  <span class="o">.</span><span class="n">runWith</span><span class="o">(</span><span class="nc">Sink</span><span class="o">.</span><span class="n">foreach</span><span class="o">(</span><span class="n">println</span><span class="o">))</span>
+</code></pre>
+</div>
+
+<h3 id="fs2">FS2</h3>
+
+<h4 id="with-catseffectio">With cats.effect.IO</h4>
+
+<div class="language-scala highlighter-rouge"><pre class="highlight"><code><span class="k">import</span> <span class="nn">cats.effect.IO</span>
+<span class="k">import</span> <span class="nn">neotypes.cats.implicits._</span>
+<span class="k">import</span> <span class="nn">neotypes.fs2.Fs2IoStream</span>
+<span class="k">import</span> <span class="nn">neotypes.fs2.implicits._</span>
+<span class="k">import</span> <span class="nn">neotypes.implicits._</span>
+
+<span class="k">val</span> <span class="n">s</span> <span class="k">=</span> <span class="n">driver</span><span class="o">.</span><span class="n">session</span><span class="o">().</span><span class="n">asScala</span><span class="o">[</span><span class="kt">IO</span><span class="o">]</span>
+
+<span class="s">"match (p:Person) return p.name"</span>
+  <span class="o">.</span><span class="n">query</span><span class="o">[</span><span class="kt">String</span><span class="o">]</span>
+  <span class="o">.</span><span class="n">stream</span><span class="o">[</span><span class="kt">Fs2IoStream</span><span class="o">](</span><span class="n">s</span><span class="o">)</span>
+  <span class="o">.</span><span class="n">evalMap</span><span class="o">(</span><span class="n">n</span> <span class="k">=&gt;</span> <span class="nc">IO</span><span class="o">(</span><span class="n">println</span><span class="o">(</span><span class="n">n</span><span class="o">)))</span>
+  <span class="o">.</span><span class="n">compile</span>
+  <span class="o">.</span><span class="n">drain</span>
+  <span class="o">.</span><span class="n">unsafeRunSync</span><span class="o">()</span>
+</code></pre>
+</div>
+
+<h4 id="with-other-effect-type">With other effect type.</h4>
+
+<div class="language-scala highlighter-rouge"><pre class="highlight"><code><span class="k">import</span> <span class="nn">neotypes.cats.implicits._</span>
+<span class="k">import</span> <span class="nn">neotypes.fs2.Fs2FStream</span>
+<span class="k">import</span> <span class="nn">neotypes.fs2.implicits._</span>
+<span class="k">import</span> <span class="nn">neotypes.implicits._</span>
+
+<span class="k">type</span> <span class="kt">F</span><span class="o">[</span><span class="k">_</span><span class="o">]</span> <span class="k">=</span> <span class="o">???</span> <span class="c1">// As long as there is an instance of cats.effect.Async[F].
+</span>
+<span class="k">val</span> <span class="n">s</span> <span class="k">=</span> <span class="n">driver</span><span class="o">.</span><span class="n">session</span><span class="o">().</span><span class="n">asScala</span><span class="o">[</span><span class="kt">F</span><span class="o">]</span>
+
+<span class="s">"match (p:Person) return p.name"</span>
+  <span class="o">.</span><span class="n">query</span><span class="o">[</span><span class="kt">String</span><span class="o">]</span>
+  <span class="o">.</span><span class="n">stream</span><span class="o">[</span><span class="kt">Fs2FStream</span><span class="o">[</span><span class="kt">F</span><span class="o">]</span><span class="k">#</span><span class="kt">T</span><span class="o">](</span><span class="n">s</span><span class="o">)</span>
+  <span class="o">.</span><span class="n">evalMap</span><span class="o">(</span><span class="n">n</span> <span class="k">=&gt;</span> <span class="n">F</span><span class="o">.</span><span class="n">delay</span><span class="o">(</span><span class="n">println</span><span class="o">(</span><span class="n">n</span><span class="o">)))</span>
+  <span class="o">.</span><span class="n">compile</span>
+  <span class="o">.</span><span class="n">drain</span>
+</code></pre>
+</div>
+
+<h3 id="monix-observables">Monix Observables</h3>
+
+<div class="language-scala highlighter-rouge"><pre class="highlight"><code><span class="k">import</span> <span class="nn">monix.eval.Task</span>
+<span class="k">import</span> <span class="nn">monix.execution.Scheduler.Implicits.globa</span>
+<span class="k">import</span> <span class="nn">neotypes.monix.implicits._</span>
+<span class="k">import</span> <span class="nn">neotypes.monix.stream.MonixStream</span>
+<span class="k">import</span> <span class="nn">neotypes.monix.stream.implicits._</span>
+<span class="k">import</span> <span class="nn">neotypes.implicits._</span>
+<span class="k">import</span> <span class="nn">scala.concurrent.duration._</span>
+
+<span class="k">val</span> <span class="n">s</span> <span class="k">=</span> <span class="n">driver</span><span class="o">.</span><span class="n">session</span><span class="o">().</span><span class="n">asScala</span><span class="o">[</span><span class="kt">Task</span><span class="o">]</span>
+
+<span class="s">"match (p:Person) return p.name"</span>
+  <span class="o">.</span><span class="n">query</span><span class="o">[</span><span class="kt">String</span><span class="o">]</span>
+  <span class="o">.</span><span class="n">stream</span><span class="o">[</span><span class="kt">MonixStream</span><span class="o">](</span><span class="n">s</span><span class="o">)</span>
+  <span class="o">.</span><span class="n">mapEval</span><span class="o">(</span><span class="n">n</span> <span class="k">=&gt;</span> <span class="nc">Task</span><span class="o">(</span><span class="n">println</span><span class="o">(</span><span class="n">n</span><span class="o">)))</span>
+  <span class="o">.</span><span class="n">completedL</span>
+  <span class="o">.</span><span class="n">runSyncUnsafe</span><span class="o">(</span><span class="mi">5</span> <span class="n">seconds</span><span class="o">)</span>
+</code></pre>
+</div>
+
+<hr />
+
+<p><em>Please note that the above provided type aliases are just for convenience</em>.</p>
+
+<p><em>You can always use:</em></p>
+
+<ul>
+  <li><strong><em>Type lambdas</em>:</strong></li>
+</ul>
+
+<div class="language-scala highlighter-rouge"><pre class="highlight"><code><span class="n">query</span><span class="o">.</span><span class="n">stream</span><span class="o">[{</span> <span class="k">type</span> <span class="kt">T</span><span class="o">[</span><span class="kt">A</span><span class="o">]</span> <span class="kt">=</span> <span class="kt">fs2.Stream</span><span class="o">[</span><span class="kt">IO</span>, <span class="kt">A</span><span class="o">]</span> <span class="o">}</span><span class="k">#</span><span class="kt">T</span><span class="o">](</span><span class="n">s</span><span class="o">)</span>
+</code></pre>
+</div>
+
+<ul>
+  <li><strong><em>Type Alias</em>:</strong></li>
+</ul>
+
+<div class="language-scala highlighter-rouge"><pre class="highlight"><code><span class="k">type</span> <span class="kt">AkkaStream</span><span class="o">[</span><span class="kt">T</span><span class="o">]</span> <span class="k">=</span> <span class="n">akka</span><span class="o">.</span><span class="n">stream</span><span class="o">.</span><span class="n">scaladsl</span><span class="o">.</span><span class="nc">Source</span><span class="o">[</span><span class="kt">T</span>, <span class="kt">Future</span><span class="o">[</span><span class="kt">Unit</span><span class="o">]]</span>
+<span class="n">query</span><span class="o">.</span><span class="n">stream</span><span class="o">[</span><span class="kt">AkkaStream</span><span class="o">](</span><span class="n">s</span><span class="o">)</span>
+</code></pre>
+</div>
+
+<ul>
+  <li><strong><a href="https://github.com/typelevel/kind-projector"><em>Kind Projector</em></a>:</strong></li>
+</ul>
+
+<div class="language-scala highlighter-rouge"><pre class="highlight"><code><span class="n">query</span><span class="o">.</span><span class="n">stream</span><span class="o">[</span><span class="kt">fs2.Stream</span><span class="o">[</span><span class="kt">F</span>, <span class="kt">?</span><span class="o">]](</span><span class="n">s</span><span class="o">)</span>
+</code></pre>
+</div>
+
+<hr />
+
+<p>The code snippets above are lazily retrieving data from neo4j, loading each element of the result only when it’s requested and rolls back the transaction once all elements are read.
+This approach aims to improve performance and memory footprint with large volumes of returning data.</p>
+
+<h2 id="transaction-management">Transaction management</h2>
+
+<p>You have two options in transaction management:</p>
+<ul>
+  <li><strong>Manual</strong>: if you use <code class="highlighter-rouge">neotypes.Transaction</code> and call <code class="highlighter-rouge">stream</code>, you need to ensure that the transaction is gracefully closed after reading is finished.</li>
+  <li><strong>Auto-closing</strong>: you may wish to automatically rollback the transaction once
+all elements are consumed. This behavior is provided by <code class="highlighter-rouge">DeferredQuery.stream(Session[F])</code></li>
+</ul>
+
+<h2 id="alternative-stream-implementations">Alternative stream implementations</h2>
+
+<p>If you don’t see your stream supported.
+You can add your implementation of <code class="highlighter-rouge">neotypes.Stream.Aux[S[_], F[_]]</code> typeclass,
+and add it to the implicit scope.</p>
+
+<p>The type parameters in the signature indicate:</p>
+
+<ul>
+  <li><code class="highlighter-rouge">S[_]</code> - a type of your stream.</li>
+  <li><code class="highlighter-rouge">F[_]</code> - an effect that will be used to produce each element retrieval.</li>
+</ul>
+</section></div></div></div></div><script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script><script src="/neotypes/highlight/highlight.pack.js"></script><script>hljs.configure({languages:['scala','java','bash']});
+hljs.initHighlighting();
+              </script><script>((window.gitter = {}).chat = {}).options = {
+room: 'neotypes/neotypes'};</script><script src="https://sidecar.gitter.im/dist/sidecar.v1.js"></script><script src="/neotypes/js/main.js"></script></body></html>

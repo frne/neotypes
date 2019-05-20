@@ -1,0 +1,11 @@
+name: neotypes
+baseurl: /neotypes
+description: Scala lightweight, type-safe, asynchronous driver for neo4j
+highlighter: rouge
+docs: true
+collections:
+  tut:
+    output: true
+version: 0.8.1-SNAPSHOT
+org: com.dimafeng
+markdown: kramdown
